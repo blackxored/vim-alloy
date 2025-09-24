@@ -5,9 +5,11 @@ function! alloy#fmt#Format() abort
   normal! ix
   normal! "_x
 
-  if executable('alloy') < 1
+  let l:alloy_bin = get(g:, 'alloy_fmt_bin', 'alloy')
+
+  if executable(l:alloy_bin) < 1
     echohl ErrorMsg
-    echom 'alloy fmt: alloy not found in $PATH'
+    echom 'alloy fmt: ' . l:alloy_bin . ' not found (check g:allow_fmt_bin)'
     echohl None
     return
   endif
@@ -16,7 +18,7 @@ function! alloy#fmt#Format() abort
   let tmpfile = tempname()
   let shellredir_save = &shellredir
   let &shellredir = '>%s 2>' . tmpfile
-  silent execute '%!alloy fmt'
+  silent execute '%!' . shellescape(l:alloy_bin) . ' fmt'
   let &shellredir = shellredir_save
 
   " If there was an error, undo any changes and show stderr.

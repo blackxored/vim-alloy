@@ -19,4 +19,8 @@ SETTINGS                                                      *alloy-settings*
   Fails if `alloy` is not available on $PATH.
   Default: 1
 
+g:alloy_fmt_bin
+  Path to the `alloy` binary to be used for formatting.
+  Default: `alloy` from $PATH
+
 vim:tw=78:et:ft=help:norl:
